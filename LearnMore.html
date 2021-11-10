@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<input  type="text" id="input"/>
+<div class="border-box">
+  <div class="border-bg">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste ratione necessitatibus numquam sunt nihil quos
+    saepe sit facere. Alias accusamus voluptate accusantium facere fugiat animi temporibus adipisci! Corporis,
+    accusamus tempora.
+  </div>
+</div>
+<div id="container">
+  <button class="learn-more">
+    <span class="circle" aria-hidden="true">
+      <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">Learn More</span>
+  </button>
+</div>
+<div class="transformBox">
+
+</div>
+    <script>
+        //随机ip
+        const randomIp = () => Array(4).fill(0)
+            .map((_, i) => Math.floor(Math.random() * 255) + (i === 0 ? 1 : 0))
+            .join('.')
+
+        console.log(randomIp());
+
+//计算不同日期之间的天数 
+const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
+// Example
+diffDays(new Date('2014-12-19'), new Date('2020-01-01')); // 1839
+
+//数组扁平化
+const deps = {
+    '采购部':[1,2,3],
+    '人事部':[5,8,12],
+    '行政部':[5,14,79],
+    '运输部':[3,64,105],
+}
+let member = Object.values(deps).flat(Infinity);
+console.log(member);//[1, 2, 3, 5, 8, 12, 5, 14, 79, 3, 64, 105]
+
+let obj = {
+    name:"wangz"
+}
+const name = obj?.name;//若obj存在 
+
+let value
+if(value !== null && value !== undefined && value !== ''){
+    //...
+}
+if(value??'' !== ''){
+  //...
+}  //空值合并运算符  value如果为null或者undefined 则为""
+
+
+//利用split join 替换字符串
+str = "Test abc test test abc test...".split("abc").join("");
+console.log(str);
+//一般模式是
+// str.split(search).join(replacement)
+
+
+//新方法 replaceAll
+
+let result = "1 abc 2 abc 3".replaceAll("abc", "xyz");
+//replaceAll的兼容实现：
+String.prototype.replaceAll = String.prototype.replaceAll || function(string, replaced) {
+  return this.replace(new RegExp(string, 'g'), replaced);
+};
+
+var value3 = {
+    name:'zhangsan',
+    age:3
+}
+let valueClass = Object.prototype.toString.call(value3), //[object Object]
+    type2 = valueClass.split(" ")[0].split('')
+    type2.shift()
+    console.log(type2.join(""));
+
+
+    /* 防抖 */
+  const debounce = function (func, delay) {
+  let timer = null
+
+  return function (...args) {
+    clearTimeout(timer)
+
+    timer = setTimeout(() => {
+      func.apply(this, args)
+    }, delay)
+  }
+}
+
+var $input = document.getElementById('input')
+
+
+// js部分
+const showName = debounce(function (name) {
+  console.log($input.value, this, name)
+}, 500)
+
+
+$input.addEventListener('input', (e) => {
+  // 500ms内停止输入才会输出
+  showName.call({ name: '前端胖头鱼' }, '前端胖头鱼')
+  console.log('抖动',$input.value);//输入和打印同时 不会在停止输入后再打印
+
+})
+</script>
+</body>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="learnMore.css">
+  <style>
+    
+.border-box {
+width: 300px;
+height: 300px;
+border: 4px solid transparent;
+border-radius: 16px;
+position: relative;
+/* background-color: #222; */
+background-clip: padding-box; /*important*/
+}
+
+.border-bg {
+position: absolute;
+top: 0;
+right: 0;
+left: 0;
+bottom: 0;
+z-index: -1;
+margin: -4px;
+text-align: center;
+border-radius: inherit; /*important*/ 
+background: linear-gradient(to right, #8f41e9, #578aef);
+}
+.transformBox{
+  position: absolute;
+  left: calc(50% - 50px);
+  top: 100px;
+  width: 100px;
+  height: 100px;
+  background-color: #000;
+  transform-origin: center center;
+  transform:rotateX(2deg) rotateY(2deg) rotateZ(0deg)  ;
+}
+  </style>
+</head>
+</html>

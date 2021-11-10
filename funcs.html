@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .sp2 {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="bx1">
+            <span class="sp1">1.输出dom节点Json格式</span>
+            <span class="sp2">2.类数组转换数组</span>
+        </div>
+        <p class="sec"></p>
+    </div>
+    <div>
+        <div>3.原型链</div>
+        <!-- a.constructor = a.proto.constructor = A.prot
+            otype.constructor =A -->
+        <div>constructor 构造器</div>
+        <img src="./js_proto_.jpg" alt="">
+    </div>
+    <script>
+        //json格式输出dom 节点
+        const domJson = (rootDom) => {
+            if (!rootDom) {
+                return;
+            }
+            let rootObj = {
+                rootTag: rootDom.tagName,
+                children: []
+            }
+            // console.log(rootDom.children);//类数组
+            let children = rootDom.children
+            if (children && children.length) {
+                Array.from(children).forEach((ele, i) => {
+                    rootObj.children[i] = domJson(ele)
+                })
+            }
+            return rootObj
+        }
+        const jsonResult = domJson(document.querySelector('.box'))
+        console.log(jsonResult);
+
+
+        // 类数组转化为数组
+        const arrayLikeObj = {
+            0: '前端胖头鱼',
+            1: 100,
+            length: 2
+        }
+
+        // 1. [].slice
+        console.log([].slice.call(arrayLikeObj))
+        // 2. Array.from
+        console.log(Array.from(arrayLikeObj))
+        // 3. Array.apply
+        console.log(Array.apply(null, arrayLikeObj))
+        // 4. [].concat
+        console.log([].concat.apply([], arrayLikeObj))
+
+        let arrr = [1, 1, 22, 23, 22, 44, 33, 33, 44, 45, 56]
+        let set = new Set(arrr)//去重 转换为类数组
+        console.log(set);
+        console.log(Array.from(set).sort());
+        console.log(Array.from(set, item => item + 1))
+        var a = new Array(3).fill(4)
+        console.log(a.constructor.prototype);
+        console.log(a.constructor.prototype == Array.prototype);
+        console.log(Array == Array.prototype.constructor);
+
+        //bind(a,[]) 返回函数  bind(a,[...])()
+        //利用apply操作类数组创建元素
+        const createSome =   function (createElement) {
+            return createElement('div',
+                Array.apply(null, { length: 20 }).map(function () {
+                    return createElement('p', 'hi')
+                })
+            )}
+        //利用apply 比较数组最大最小值
+        a=[10,20,30]
+        console.log(Math.max(10,20,30));
+        console.log(Math.max.apply(null,a));
+    </script>
+</body>
+
+</html>
