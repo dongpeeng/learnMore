@@ -10,7 +10,8 @@ let app =new koa()
 // })
 // app.listen(3000)
 
-
+let a = new Date()
+console.log(a.getHours()+':'+a.getMinutes());
 const timeout = time => new Promise(resolve => setTimeout(resolve, time));
 
 const foo = () => {
@@ -26,3 +27,6 @@ const main = async () => {
 };
 
 main();
+
+const http = require('http');
+http.createServer(app.callback()).listen(3000);

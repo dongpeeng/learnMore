@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        li {
+            font-size: 20px;
+            padding: 5px 15px 5px 15px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+
+        /*默认设置left=100%表示在最右边*/
+        li::before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 0%;
+            bottom: 0;
+            left: 100%;
+            border-bottom: 2px solid #999;
+            /*all 0.5秒 表示所有类型的过渡动画都在0.5秒内完成*/
+            transition: all 0.5s;
+        }
+
+        /*鼠标hover上去的时候width从0变化至100*/
+        li:hover::before {
+            left: 0;
+            width: 100%;
+        }
+
+        /*表示设置位于hover之后的li的before的left为0。实现向右移动的时候下面的线条从左往右出现*/
+        li:hover~li::before {
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>第一栏</li>
+        <li>第二栏</li>
+        <li>第三栏</li>
+        <li>第四栏</li>
+        <li>第五栏</li>
+    </ul>
+</body>
+
+</html>

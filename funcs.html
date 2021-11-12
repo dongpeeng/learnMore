@@ -28,6 +28,9 @@
         <div>constructor 构造器</div>
         <img src="./js_proto_.jpg" alt="">
     </div>
+    <div class="layui-body">
+        <iframe src="http://nodejs.cn/api/" width="1503"  height="800"  name="iframe" id="iframe"></iframe>
+</div>
     <script>
         //json格式输出dom 节点
         const domJson = (rootDom) => {
@@ -89,6 +92,15 @@
         a=[10,20,30]
         console.log(Math.max(10,20,30));
         console.log(Math.max.apply(null,a));
+        
+        var str3 = "substring"
+        console.log(str3.substring(1,3));//ub
+        console.log(str3.substring(1,2));//u
+        console.log(str3.substring(1));//ubstring
+        var aaa = Array(10) //[empty*10] length:10
+        aaa = Array(10).fill() //[undefined,...,undefined]
+
+                console.log(aaa);
     </script>
 </body>
 
