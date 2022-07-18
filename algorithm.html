@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      /* 匹配字符串中有没有{}[]()成对出现*/
+      /* 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。 有效字符串需满足：
+
+左括号必须用相同类型的右括号闭合。
+左括号必须以正确的顺序闭合。 */
+        const isValid = (s) => {
+  while (true) {
+    let len = s.length
+    // 将字符串按照匹配对，挨个替换为''
+    s = s.replace('{}', '').replace('[]', '').replace('()', '')
+    // 有两种情况s.length会等于len
+    // 1. s匹配完了，变成了空字符串
+    // 2. s无法继续匹配，导致其长度和一开始的len一样，比如({],一开始len是3，匹配完还是3，说明不用继续匹配了，结果就是false
+    if (s.length === len) {
+      return len === 0
+    }
+  }
+ }
+
+ const isValid2 = (s) => {
+  // 空字符串符合条件
+  if (!s) {
+    return true
+  }
+
+  const leftToRight = {
+    '(': ')',
+    '[': ']',
+    '{': '}'
+  }
+  const stack = []
+
+  for (let i = 0, len = s.length; i < len; i++) {
+    const ch = s[i]
+    // 左括号
+    if (leftToRight[ch]) {
+      stack.push(ch)
+    } else {
+      // 右括号开始匹配
+      // 1. 如果栈内没有左括号，直接false
+      // 2. 有数据但是栈顶元素不是当前的右括号
+      if (!stack.length || leftToRight[ stack.pop() ] !== ch) {
+        return false
+      }
+    }
+  }
+
+  // 最后检查栈内还有没有元素，有说明还有未匹配则不符合
+  return !stack.length
+}
+console.log(isValid2('[[]({}([]())[][{()}])]'))
+    </script>
+</body>
+</html>
